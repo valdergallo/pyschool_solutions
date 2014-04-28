@@ -12,15 +12,15 @@ Examples
 ...            ('X', 'X', 'X')])
 "'X' wins (horizontal)."
 
-# >>> tictactoe([('X', 'O', 'X'),
-# ...            ('O', 'X', 'O'),
-# ...            ('O', 'X', 'O') ])
-# 'Draw.'
+>>> tictactoe([('X', 'O', 'X'),
+...            ('O', 'X', 'O'),
+...            ('O', 'X', 'O') ])
+'Draw.'
 
-# >>> tictactoe([('X', 'O', 'O'),
-# ...            ('X', 'O', ' '),
-# ...            ('O', 'X', ' ') ])
-# "'O' wins (diagonal)."
+>>> tictactoe([('X', 'O', 'O'),
+...            ('X', 'O', ' '),
+...            ('O', 'X', ' ') ])
+"'O' wins (diagonal)."
 
 >>> tictactoe([('X', 'O', 'X'),
 ...            ('O', 'O', 'X'),
@@ -46,7 +46,13 @@ def tictactoe(moves):
             winner = line[0]
             return "'%s' wins (vertical)." % winner
 
-    diagonal = [total_itens[i:i-3] for i in xrange(3)]
+    tl = len(moves[0]) # total items in line
+    diagonal = [moves[i][i] for i in xrange(tl)]
+    diagonal_revert = [moves[i][(tl-1)-i] for i in xrange(tl)]
 
+    if len(set(diagonal)) == 1:
+        return "'%s' wins (diagonal)." % diagonal[0]
+    if len(set(diagonal_revert)) == 1:
+        return "'%s' wins (diagonal)." % diagonal_revert[0]
 
     return 'Draw.'
